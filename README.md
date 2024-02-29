@@ -14,6 +14,7 @@ Manually create an S3 bucket and use it in the backend.
 
 ## Resizer
 [On Demand Image Resizing with CloudFront, S3 and Lambda in Ruby and Terraform](https://medium.com/@ckhtech/on-demand-image-resizing-with-cloudfront-s3-and-lambda-in-ruby-and-terraform-d9fb06e60b37)
+
 Copy some example files:
 
 ```shell
@@ -21,9 +22,9 @@ cp terraform/deploy/resizer/backend.tf.example terraform/deploy/resizer/backend.
 cp terraform/deploy/resizer/terraform.tfvars.example terraform/deploy/resizer/terraform.tfvars
 ```
 
-In the backend you must at least use the name of your state bucket if you are using remote state.
-In the tfvars you must choose a host name for your resizing service. 
-You can optionally create a Route 53 zone and certificate if you haven't created those for your domain yet.
+* In the backend you must at least use the name of your state bucket if you are using remote state.
+* In the tfvars you must choose a host name for your resizing service. 
+* Also in tfvars, you can optionally create a Route 53 zone and certificate if you haven't created those for your domain yet.
 If you have those already they will be referenced and used.
 
 Deploy it! 
