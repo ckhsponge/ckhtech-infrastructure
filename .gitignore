@@ -32,3 +32,17 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+
+.idea
+app.zip
+app/vendor/bundle
+.bundle
+.env
+src.zip
+sync
+terraform/modules/resizer/app/vendor/
+tmp/
+
+/terraform/deploy/*/backend.tf
+.terraform.lock.hcl
