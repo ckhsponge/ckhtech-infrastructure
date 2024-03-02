@@ -1,0 +1,31 @@
+remote_state {
+  backend = "s3"
+  generate = {
+    path      = "backend.tf"
+    if_exists = "overwrite_terragrunt"
+  }
+  config = {
+    bucket = "terraform-state-bucket" # RENAME to your state bucket
+
+    key = "${path_relative_to_include()}/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+  }
+}
+
+generate "provider" {
+  path = "provider.tf"
+  if_exists = "overwrite_terragrunt"
+  contents = <<EOF
+provider "aws" {
+  region = "us-east-1"
+}
+EOF
+}
+
+inputs = {
+  aws_region = "us-east-1"
+  host_name = "resizer.mydomain.com" # RENAME - host name where resizer lives
+  files_bucket = "my-resizing-files" # RENAME - s3 bucket name
+  domain_name = "mydomain.com" # RENAME - used by certificate and route53
+}

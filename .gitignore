@@ -33,6 +33,11 @@ override.tf.json
 .terraformrc
 terraform.rc
 
+# Terragrunt
+terragrunt.iml
+.terragrunt-cache
+.terraform.lock.hcl
+terragrunt
 
 .idea
 app.zip
@@ -44,5 +49,4 @@ sync
 terraform/modules/resizer/app/vendor/
 tmp/
 
-/terraform/deploy/*/backend.tf
-.terraform.lock.hcl
+resizer_example/terragrunt.hcl

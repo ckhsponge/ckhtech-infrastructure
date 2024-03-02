@@ -1,4 +1,0 @@
-aws_region = "us-east-1"
-resizer_host_name = "resizer.mydomain.com"
-create_route53_zone = false
-create_certificate = false
