@@ -26,8 +26,8 @@ class RecordBase < RecordDynamoid
     self.id ||= "#{self.type}##{SecureRandom.uuid}"
   end
 
+  # re-runnable command to create table if it hasn't been created yet
   def self.create_table_if_needed
-    # re-runnable
     RecordBase.create_table(sync: true) # create and wait for completion
   end
 

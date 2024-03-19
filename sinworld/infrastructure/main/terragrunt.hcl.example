@@ -13,8 +13,12 @@ terraform {
     execute  = ["rbenv", "exec", "bundle", "install"]
   }
 }
+
 inputs = {
-  host_name                    = "sin.mydomain.com" # RENAME
+  aws_region                   = "us-east-1"
+  # certificate must cover the host_name e.g. [mydomain.com, *.mydomain.com] covers sin.mydomain.com
+  domain_base                  = "mydomain.com" # RENAME - used for certificate lookup and other services
+  host_name                    = "sin.mydomain.com" # RENAME - primary host name for service
   service                      = "sinworld" # name of service, appears on AWS resources
   create_codecommit_repository = false
   create_certificate           = false # will try to lookup certificate for mydomain.com if not created here

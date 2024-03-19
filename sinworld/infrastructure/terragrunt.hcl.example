@@ -6,8 +6,8 @@ remote_state {
   }
   config = {
     bucket = "terraform-state-bucket" # RENAME to your state bucket
-
-    key = "${path_relative_to_include()}/terraform.tfstate"
+    # RENAME myservicename in case multiple services pull the sinworld module
+    key = "myservicename/${path_relative_to_include()}/terraform.tfstate"
     region         = "us-east-1"
     encrypt        = true
   }
@@ -23,7 +23,8 @@ provider "aws" {
 EOF
 }
 
+# these can be referenced by any child modules
 inputs = {
   aws_region = "us-east-1"
-  domain_name = "mydomain.com" # RENAME - used by certificate and route53
+  domain_base = "staging.myspace.com" # RENAME - used by certificate and route53
 }
