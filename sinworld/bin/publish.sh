@@ -1,0 +1,6 @@
+cd app
+echo Zipping...
+zip -r ../app.zip *
+cd ..
+echo Updating...
+aws lambda update-function-code --function-name sinworld-main-sinatra --publish --zip-file fileb://app.zip

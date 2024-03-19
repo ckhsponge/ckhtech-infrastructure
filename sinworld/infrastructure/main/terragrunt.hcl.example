@@ -1,0 +1,26 @@
+include "root" {
+  path = find_in_parent_folders()
+}
+terraform {
+  source = "git@github.com:ckhsponge/ckhtech-modules.git//sinworld"
+  before_hook "before_hook_1" {
+    commands = ["apply"]
+    execute  = ["rbenv", "exec", "bundle", "config", "set", "--local", "path", "app/vendor/bundle"]
+  }
+
+  before_hook "before_hook_2" {
+    commands = ["apply"]
+    execute  = ["rbenv", "exec", "bundle", "install"]
+  }
+}
+inputs = {
+  host_name                    = "sin.mydomain.com" # RENAME
+  service                      = "sinworld" # name of service, appears on AWS resources
+  create_codecommit_repository = false
+  create_certificate           = false # will try to lookup certificate for mydomain.com if not created here
+  create_email_server          = false
+  create_dynamodb              = true
+  create_static_bucket         = true
+  create_files_bucket          = false
+  create_files_resizer         = false # image resizer on the files bucket
+}

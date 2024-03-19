@@ -1,0 +1,2 @@
+#!/bin/zsh
+aws s3 sync app/public/ s3://com-myproject-something-important/dist/

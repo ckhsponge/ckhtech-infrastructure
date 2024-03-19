@@ -1,0 +1,15 @@
+.title
+  Recent Sins -
+  = @count.to_i
+- @sins.each do |sin|
+  %p
+    %span.sin-date
+      = sin.created_at
+    %br/
+    = sin.description
+%form{action:'/commit', method:'post'}
+  %p
+    %label{for:'description'}
+      Sin:
+    %input#name{type:'text', name:'description'}
+    %input{:type => "submit", :value => "Commit"}
