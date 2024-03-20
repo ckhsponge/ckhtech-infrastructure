@@ -69,3 +69,83 @@ Outputs:
 example_resized_url = "https://resizer.toonsy.net/files/images/possum/default.webp"
 example_source_url = "s3://net-toonsy-resizer/source/images/possum/original/cute-animal.jpeg"
 ```
+## Sinworld
+Originially presented at Sin City Ruby 2024, 
+Sinworld is cornucopia of Terraform modules centered around a Sinatra web server.
+Run a full featured application in an instant! Modules include:
+
+* Sinatra on Lambda
+* DynamoDB
+* Route53 Zone
+* Certificate
+* Cloudfront
+* S3 buckets for static files and dynamic files
+* Image resizer
+* URL redirector
+* Email sending with SES (coming soon)
+* Email server for receiving (coming soon)
+
+### Instructions
+First, clone the repo.
+```shell
+git clone git@github.com:ckhsponge/ckhtech-infrastructure.git
+cd ckhtech-infrastructure/sinworld
+cp infrastructure/terragrunt.hcl.example infrastructure/terragrunt.hcl
+```
+Edit infrastructure/terragrunt.hcl
+* Rename the terraform config.state bucket e.g jimmys-terraform-state
+* Rename the config.key in case you re-use the sinworld module
+* Update domain_base. This is probably the Route53 Zone and certificate domain name e.g. mydomain.com
+
+```shell
+cp infrastructure/main/terragrunt.hcl.example infrastructure/main/terragrunt.hcl
+```
+Edit infrastructure/main/terragrunt.hcl
+* Specify the host_name e.g. www.mydomain.com
+* Choose which services to create alongside the web server
+
+If you need a Route53 Zone run this first:
+```shell
+bin/infrastructure.sh route53
+```
+Copy the name servers in the output to your registrar.
+
+Deploy it all!
+```shell
+bin/infrastructure.sh
+```
+
+If all goes well, there are some commands in the output.
+Open the URL and you should see "Hello, Sinworld!"
+
+Run the put-public command to copy static files to S3
+```shell
+# e.g. aws s3 sync app/public/ s3://com-mydomain-www-static/dist/
+```
+
+Download gems:
+```shell
+bin/gems.sh
+```
+
+Publish a code update for your lambda.
+Most likely your lambda function name is correct. If not, check your publish_command in the output.
+```shell
+bin/publish.sh
+```
+
+Reload your URL and you will now see the sin tracker app.
+
+You can now modify the code in the app/ directory to create your own project.
+
+
+### Un-deploy
+Once you are done, destroy the resources. 
+Or leave it running for just a few pennies a day.
+```shell
+bin/infrastructure.sh main destroy
+```
+If you created a Route53 Zone destroy with:
+```shell
+bin/infrastructure.sh route53 destroy
+```

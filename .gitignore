@@ -52,7 +52,6 @@ tmp/
 resizer_example/terragrunt.hcl
 sinworld/infrastructure/terragrunt.hcl
 sinworld/infrastructure/main/terragrunt.hcl
-sinworld/infrastructure/*/terragrunt.hcl
 sinworld/.bundle
 sinworld/app/vendor
 sinworld/bin/put_public.sh

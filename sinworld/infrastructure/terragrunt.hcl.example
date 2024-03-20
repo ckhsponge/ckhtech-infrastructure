@@ -5,9 +5,10 @@ remote_state {
     if_exists = "overwrite_terragrunt"
   }
   config = {
-    bucket = "terraform-state-bucket" # RENAME to your state bucket
-    # RENAME myservicename in case multiple services pull the sinworld module
-    key = "myservicename/${path_relative_to_include()}/terraform.tfstate"
+    # RENAME to your state bucket, can be re-used by multiple modules
+    bucket = "terraform-state-bucket"
+    # RENAME sinworldservice in case multiple services pull the sinworld module
+    key = "sinworldservice/${path_relative_to_include()}/terraform.tfstate"
     region         = "us-east-1"
     encrypt        = true
   }

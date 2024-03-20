@@ -1,3 +1,5 @@
 # apply terraform changes by pulling from github
-cd sinworld_infrastructure
-terragrunt apply
+MODULE=${1:-main}
+ACTION=${2:-apply}
+cd infrastructure/$MODULE
+terragrunt $ACTION

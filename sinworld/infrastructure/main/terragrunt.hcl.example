@@ -2,7 +2,7 @@ include "root" {
   path = find_in_parent_folders()
 }
 terraform {
-  source = "git@github.com:ckhsponge/ckhtech-modules.git//sinworld"
+  source = "git@github.com:ckhsponge/ckhtech-modules.git//sinworld?ref=v1.3"
   before_hook "before_hook_1" {
     commands = ["apply"]
     execute  = ["rbenv", "exec", "bundle", "config", "set", "--local", "path", "app/vendor/bundle"]
@@ -17,7 +17,6 @@ terraform {
 inputs = {
   aws_region                   = "us-east-1"
   # certificate must cover the host_name e.g. [mydomain.com, *.mydomain.com] covers sin.mydomain.com
-  domain_base                  = "mydomain.com" # RENAME - used for certificate lookup and other services
   host_name                    = "sin.mydomain.com" # RENAME - primary host name for service
   service                      = "sinworld" # name of service, appears on AWS resources
   create_codecommit_repository = false
