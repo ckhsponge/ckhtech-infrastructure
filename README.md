@@ -21,7 +21,9 @@ The below examples use S3 for remote state.
 Manually create an S3 bucket and use it in the backend. 
 
 ## CKH-TECH
-All these great modules live in the repo [ckhsponge/ckhtech-modules](https://github.com/ckhsponge/ckhtech-modules). 
+All these great modules live in the repo [ckhsponge/ckhtech-modules](https://github.com/ckhsponge/ckhtech-modules).
+This repo is the "live" repo which demonstrates how to deploy the modules using Terragrunt.
+Clone this repo and follow the instructions below to get the module live in your environment.
 
 ## Resizer
 [On Demand Image Resizing with CloudFront, S3 and Lambda in Ruby and Terraform](https://medium.com/@ckhtech/on-demand-image-resizing-with-cloudfront-s3-and-lambda-in-ruby-and-terraform-d9fb06e60b37)
@@ -69,9 +71,27 @@ Outputs:
 example_resized_url = "https://resizer.toonsy.net/files/images/possum/default.webp"
 example_source_url = "s3://net-toonsy-resizer/source/images/possum/original/cute-animal.jpeg"
 ```
+
+### Lambda layer and HEIC support
+You must add an imagemagick lambda layer for the resizer to function.
+Compile the lambda layer yourself to gain HEIC (iPhone) support.
+This may take a long time to build.
+```shell
+mkdir -p install
+cd install
+git clone https://github.com/provenancetech/imagemagick-aws-lambda-2
+# or 
+git clone git@github.com:ckhsponge/imagemagick-aws-lambda-2.git
+cd imagemagick-aws-lambda-2
+# start your docker then:
+make all
+# ensure AWS credentials are in terminal e.g. export AWS_PROFILE=...
+make deploy DEPLOYMENT_BUCKET=<YOUR BUCKET NAME>
+```
+
 ## Sinworld
 Originially presented at Sin City Ruby 2024, 
-Sinworld is cornucopia of Terraform modules centered around a Sinatra web server.
+Sinworld is a cornucopia of Terraform modules centered around a Sinatra web server.
 Run a full featured application in an instant! Modules include:
 
 * Sinatra on Lambda
@@ -101,7 +121,7 @@ Edit infrastructure/terragrunt.hcl
 cp infrastructure/main/terragrunt.hcl.example infrastructure/main/terragrunt.hcl
 ```
 Edit infrastructure/main/terragrunt.hcl
-* Specify the host_name e.g. www.mydomain.com
+* Specify the host_name for your service e.g. www.mydomain.com
 * Choose which services to create alongside the web server
 
 If you need a Route53 Zone run this first:
@@ -149,3 +169,4 @@ If you created a Route53 Zone destroy with:
 ```shell
 bin/infrastructure.sh route53 destroy
 ```
+

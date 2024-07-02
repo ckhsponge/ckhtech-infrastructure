@@ -26,4 +26,6 @@ inputs = {
   create_static_bucket         = true
   create_files_bucket          = false
   create_files_resizer         = false # image resizer on the files bucket
+
+#  redirect_host_names          = ["mydomain.com"] # these will redirect to host_name
 }
