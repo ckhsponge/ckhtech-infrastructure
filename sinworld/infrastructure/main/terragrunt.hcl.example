@@ -18,6 +18,7 @@ inputs = {
   aws_region                   = "us-east-1"
   # certificate must cover the host_name e.g. [mydomain.com, *.mydomain.com] covers sin.mydomain.com
   host_name                    = "sin.mydomain.com" # RENAME - primary host name for service
+  domain_base                  = "mydomain.com" # used to look up or create certificate
   service                      = "sinworld" # name of service, appears on AWS resources
   create_codecommit_repository = false
   create_certificate           = false # will try to lookup certificate for mydomain.com if not created here
@@ -26,6 +27,7 @@ inputs = {
   create_static_bucket         = true
   create_files_bucket          = false
   create_files_resizer         = false # image resizer on the files bucket
+  encrypt_buckets              = false # may cost extra
 
 #  redirect_host_names          = ["mydomain.com"] # these will redirect to host_name
 }
